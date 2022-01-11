@@ -9,7 +9,7 @@ module Clock_Gen (clk);
     always #5 clk = ~clk;
 endmodule
 
-module CPU(input clock, input HRQ, input reg [31 : 0] ADDRESS, input reg [31 : 0] COUNT, output reg HLDA, output reg read_write, output reg [31 : 0] address, output reg [31 : 0] count);
+module CPU(input clock, input HRQ, input reg [15 : 0] ADDRESS, input reg [15 : 0] COUNT, output reg HLDA, output reg read_write, output reg [15 : 0] address, output reg [15 : 0] count);
     //1) MIPS HAVE Instruction memory that have addresses of instructions in 32bits fetched in IR
     //2) we will decode this IR in rs,rt,rd then we will put formats inside Register file and make Alu Operation Then Store in Reg File!!
     //3) No Branching or DataMemory involved
@@ -139,14 +139,14 @@ module DMA (clock, DREQ, HLDA, address, count, read_write, mem_disk, mem_ram, DA
     output reg DACK;
     output reg HRQ;
     reg [7 : 0] DATA_REGISTER; // has 8 bits
-    inout reg [31 : 0] address, count;
+    inout reg [15 : 0] address, count;
     reg [31 : 0] ADDRESS_REM;
     reg my_first_time;
     reg first_time;
     reg first_loob;
     reg [31 : 0] sum;
-    reg [31 : 0] ADDRESS;
-    reg [31 : 0] COUNT;
+    reg [15 : 0] ADDRESS;
+    reg [15 : 0] COUNT;
     reg [31 : 0] data; // has 8 bits
 
     //array unflaterned
@@ -391,7 +391,7 @@ endmodule
 module DISK (mem, DREQ, DACK, ADDRESS, COUNT);
     input DACK;
     output reg DREQ;
-    output reg[31 : 0] ADDRESS, COUNT;
+    output reg[15 : 0] ADDRESS, COUNT;
     //32 register
     reg [31 : 0] disk_memory [0 : 31]; //memory to be flatern
     parameter registerNum = 32;
@@ -448,10 +448,10 @@ module tb_CPU;
     wire [32 * 32 - 1 : 0] mem_disk;
     wire [32 * 32 - 1 : 0] mem_ram;
     wire HRQ;
-    wire [31 : 0] ADDRESS; //outputs of DISK
-    wire [31 : 0] COUNT; // outputs of DISK
-    wire [31 : 0] address; // outputs of CPU
-    wire [31 : 0] count; // outputs of CPU
+    wire [15 : 0] ADDRESS; //outputs of DISK
+    wire [15 : 0] COUNT; // outputs of DISK
+    wire [15 : 0] address; // outputs of CPU
+    wire [15 : 0] count; // outputs of CPU
 
 
     //1- clock
