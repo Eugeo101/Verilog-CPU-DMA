@@ -15,6 +15,7 @@ module CPU(clock);
     //2) we will decode this IR in rs,rt,rd then we will put formats inside Register file and make Alu Operation Then Store in Reg File!!
     //3) No Branching or DataMemory involved
     //4)  I Assumed Clock is 1Ghz and 4Kbyte Imemory (cache)
+    //5) Finish the project
     
     parameter wordSize = 32; //32 bit
     parameter registerNum = 32; // 32 registers 
